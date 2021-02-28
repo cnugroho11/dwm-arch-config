@@ -8,8 +8,8 @@ static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%"
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
 static const char *brightness_up[]	= { "/usr/bin/light", "-A", "5", NULL };
 static const char *brightness_down[]  	= { "/usr/bin/light", "-U", "5", NULL };
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int borderpx  = 5;        /* border pixel of windows */
+static const unsigned int gappx     = 8;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -23,16 +23,16 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_custom[]      = "#5e0034";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_custom,  col_custom  },
 };
 
 /* tagging */
-static const char *tags[] = { "WWW", "CODE", "TERM", "DISC", "FILE", "ANY", "ANY", "SPOT", "TELE" };
-
+static const char *tags[] = { "WWW", "CODE", "TERM", "FILE", "ANY", "ANY", "DISC", "SPOT", "TELE" };
+//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -69,9 +69,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_custom, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *filemgr[] = {"thunar", NULL};
+static const char *screenshot[] = {"scrot", "-e", "mv $f ~/Pictures/Screenshot", NULL};
+static const char *brave[] = {"brave", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -80,9 +82,11 @@ static Key keys[] = {
 	{ 0,              XF86XK_AudioRaiseVolume, spawn, 	   {.v = upvol   } },
 	{ 0,             XF86XK_MonBrightnessUp,   spawn, 	   {.v = brightness_up } },
 	{ 0,             XF86XK_MonBrightnessDown, spawn, 	   {.v = brightness_down } },
+	{ 0,             XK_Print,                 spawn,      {.v = screenshot } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_e,      spawn,          {.v = filemgr } },
+    { MODKEY,                       XK_F1,     spawn,          {.v = brave } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
