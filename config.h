@@ -3,9 +3,15 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
-static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
-static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+//static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
+static const char *upvol[]   = { "/usr/bin/amixer", "-D", "pulse", "sset", "Master", "5%+",     NULL };
+
+//static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
+static const char *downvol[] = { "/usr/bin/amixer", "-D", "pulse", "sset", "Master", "5%-",     NULL };
+
+//static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+static const char *mutevol[] = { "/usr/bin/amixer", "-D", "pulse", "set", "Master", "toggle",  NULL };
+
 static const char *brightness_up[]	= { "/usr/bin/light", "-A", "5", NULL };
 static const char *brightness_down[]  	= { "/usr/bin/light", "-U", "5", NULL };
 static const unsigned int borderpx  = 5;        /* border pixel of windows */
@@ -40,8 +46,8 @@ static const Rule rules[] = {
 	 */
 	/* class                instance                title               tags mask     isfloating   monitor */
 	{ "Gimp",               NULL,                   NULL,               0,            1,           -1 },
-    { "telegram-desktop",   "telegram-desktop",     "Telegram",         1 << 8,       1,           -1 },
-    { "spotify",            "spotify",              "Spotify Free",     1 << 7,       0,           -1 },
+    { "TelegramDesktop",    NULL,                   NULL,               1 << 8,       1,           -1 },
+    { "Spotify",            NULL,                   NULL,               1 << 7,       0,           -1 },
 };
 
 /* layout(s) */
@@ -84,7 +90,7 @@ static Key keys[] = {
 	{ 0,             XF86XK_MonBrightnessDown, spawn, 	   {.v = brightness_down } },
 	{ 0,             XK_Print,                 spawn,      {.v = screenshot } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_e,      spawn,          {.v = filemgr } },
     { MODKEY,                       XK_F1,     spawn,          {.v = brave } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -94,7 +100,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,	  	   	            XK_w,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
