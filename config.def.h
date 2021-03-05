@@ -50,6 +50,9 @@ static const Rule rules[] = {
     { "Spotify",            NULL,                   NULL,               1 << 7,       0,           -1 },
     { "feh",                NULL,                   NULL,               1 << 5,       0,           -1 },
     { "libreoffice",        NULL,                   NULL,               1 << 4,       0,           -1 },
+    { "libreoffice-writer", NULL,                   NULL,               1 << 4,       0,           -1 },
+    { "libreoffice-calc",   NULL,                   NULL,               1 << 4,       0,           -1 },
+    { "libreoffice-impress",NULL,                   NULL,               1 << 4,       0,           -1 },
     { "discord",            NULL,                   NULL,               1 << 6,       0,           -1 },
     { "Xreader",            NULL,                   NULL,               1 << 4,       0,           -1 },
 };
